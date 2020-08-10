@@ -8,26 +8,59 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace StudentsDiary
 {
     public partial class Main : Form
     {
+        private string _filePath = 
+            Path.Combine(Environment.CurrentDirectory, "students.txt");
+           // $@"{Environment.CurrentDirectory}\students.txt";
         public Main()
         {
-
             InitializeComponent();
+            // Sprawdzenie serializacji i deserializacji
+
+            ////var students = new List<Student>();
+            ////students.Add(new Student { FirstName = "Jan" });
+            ////students.Add(new Student { FirstName = "Małgosia" });
+            ////students.Add(new Student { FirstName = "Tymek" });
+            ////SerializeToFile(students);
+            //var students = DeserializeFromFile();
+            //    foreach (var student in students)
+            //{
+            //    MessageBox.Show(student.FirstName);
+            //}
 
 
-            var path = $@"{Path.GetDirectoryName
-               (Application.ExecutablePath)}\NowyPlik2.Txt";
-;
-            if (!File.Exists(path))
+
+
+        }
+        public void SerializeToFile(List<Student> students)
+        {
+            var serializer = new XmlSerializer(typeof(List<Student>));
+
+            using (var streamWriter = new StreamWriter(_filePath))
             {
-                File.Create(path);
+                serializer.Serialize(streamWriter, students);
+                streamWriter.Close();                
             }
-         
+                       
+        }
+        public List<Student> DeserializeFromFile()
+        {
+            if (!File.Exists(_filePath))
+                return new List<Student>();
 
+            var serializer = new XmlSerializer(typeof(List<Student>));
+
+            using (var streamReader = new StreamReader(_filePath))
+            {
+                var students = (List<Student>)serializer.Deserialize(streamReader);
+                streamReader.Close();
+                return students;
+            }
 
         }
 

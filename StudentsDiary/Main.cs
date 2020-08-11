@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,57 +21,53 @@ namespace StudentsDiary
         public Main()
         {
             InitializeComponent();
-            // Sprawdzenie serializacji i deserializacji
-
-            ////var students = new List<Student>();
-            ////students.Add(new Student { FirstName = "Jan" });
-            ////students.Add(new Student { FirstName = "Małgosia" });
-            ////students.Add(new Student { FirstName = "Tymek" });
-            ////SerializeToFile(students);
-            //var students = DeserializeFromFile();
-            //    foreach (var student in students)
-            //{
-            //    MessageBox.Show(student.FirstName);
-            //}
-
-
-
+            var students = DeserializeFromFile();
+            dgdDiary.DataSource = students;
 
         }
-        public void SerializeToFile(List<Student> students)
-        {
-            var serializer = new XmlSerializer(typeof(List<Student>));
-
-            using (var streamWriter = new StreamWriter(_filePath))
+            public void SerializeToFile(List<Student> students)
             {
-                serializer.Serialize(streamWriter, students);
-                streamWriter.Close();                
-            }
+                var serializer = new XmlSerializer(typeof(List<Student>));
+
+                using (var streamWriter = new StreamWriter(_filePath))
+                {
+                    serializer.Serialize(streamWriter, students);
+                    streamWriter.Close();                
+                }
                        
-        }
-        public List<Student> DeserializeFromFile()
-        {
-            if (!File.Exists(_filePath))
-                return new List<Student>();
-
-            var serializer = new XmlSerializer(typeof(List<Student>));
-
-            using (var streamReader = new StreamReader(_filePath))
-            {
-                var students = (List<Student>)serializer.Deserialize(streamReader);
-                streamReader.Close();
-                return students;
             }
+            public List<Student> DeserializeFromFile()
+            {
+                if (!File.Exists(_filePath))
+                    return new List<Student>();
 
-        }
+                var serializer = new XmlSerializer(typeof(List<Student>));
+
+                using (var streamReader = new StreamReader(_filePath))
+                {
+                    var students = (List<Student>)serializer.Deserialize(streamReader);
+                    streamReader.Close();
+                    return students;
+                }
+
+            }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            var addEditStudent = new AddEditStudent();
+            addEditStudent.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (dgdDiary.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Proszę zaznacz ucznia, którego chcesz edytować");
+                return;
+            }
+            var addEditStudent = new AddEditStudent(
+                Convert.ToInt32(dgdDiary.SelectedRows[0].Cells[0].Value));
+            addEditStudent.ShowDialog();
 
         }
 
@@ -81,7 +78,8 @@ namespace StudentsDiary
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-
+            var students = DeserializeFromFile();
+            dgdDiary.DataSource = students;
         }
     }
 }

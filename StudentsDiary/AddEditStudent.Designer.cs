@@ -41,7 +41,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tbMath = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tbReligion = new System.Windows.Forms.TextBox();
+            this.tbTechnology = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tbForeign = new System.Windows.Forms.TextBox();
             this.rtbComments = new System.Windows.Forms.RichTextBox();
@@ -75,7 +75,7 @@
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Imie";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            
             // 
             // tbFirstName
             // 
@@ -131,7 +131,6 @@
             this.tbPhisic.Name = "tbPhisic";
             this.tbPhisic.Size = new System.Drawing.Size(208, 20);
             this.tbPhisic.TabIndex = 8;
-            this.tbPhisic.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // label5
             // 
@@ -141,7 +140,6 @@
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 7;
             this.label5.Text = "Matematyka";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // tbMath
             // 
@@ -155,16 +153,16 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(10, 194);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 13);
+            this.label6.Size = new System.Drawing.Size(66, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "Religia";
+            this.label6.Text = "Technologia";
             // 
-            // tbReligion
+            // tbTechnology
             // 
-            this.tbReligion.Location = new System.Drawing.Point(81, 191);
-            this.tbReligion.Name = "tbReligion";
-            this.tbReligion.Size = new System.Drawing.Size(208, 20);
-            this.tbReligion.TabIndex = 14;
+            this.tbTechnology.Location = new System.Drawing.Point(81, 191);
+            this.tbTechnology.Name = "tbTechnology";
+            this.tbTechnology.Size = new System.Drawing.Size(208, 20);
+            this.tbTechnology.TabIndex = 14;
             // 
             // label7
             // 
@@ -229,7 +227,7 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.rtbComments);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.tbReligion);
+            this.Controls.Add(this.tbTechnology);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tbForeign);
             this.Controls.Add(this.label3);
@@ -266,7 +264,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbMath;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox tbReligion;
+        private System.Windows.Forms.TextBox tbTechnology;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbForeign;
         private System.Windows.Forms.RichTextBox rtbComments;

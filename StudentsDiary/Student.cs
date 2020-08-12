@@ -8,8 +8,8 @@ namespace StudentsDiary
 {
     public class Student
     {
-        public string FirstName { get; set; }
         public int Id { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Comments { get; set; }
         public string Math { get; set; }

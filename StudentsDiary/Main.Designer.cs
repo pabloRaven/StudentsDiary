@@ -34,8 +34,8 @@ namespace StudentsDiary
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.dgdDiary = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dgdDiary)).BeginInit();
+            this.dgvDiary = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDiary)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -82,32 +82,33 @@ namespace StudentsDiary
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // dgdDiary
+            // dgvDiary
             // 
-            this.dgdDiary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvDiary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgdDiary.BackgroundColor = System.Drawing.Color.White;
-            this.dgdDiary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgdDiary.Location = new System.Drawing.Point(12, 41);
-            this.dgdDiary.Name = "dgdDiary";
-            this.dgdDiary.Size = new System.Drawing.Size(633, 290);
-            this.dgdDiary.TabIndex = 4;
+            this.dgvDiary.BackgroundColor = System.Drawing.Color.White;
+            this.dgvDiary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDiary.Location = new System.Drawing.Point(12, 41);
+            this.dgvDiary.Name = "dgvDiary";
+            this.dgvDiary.Size = new System.Drawing.Size(633, 290);
+            this.dgvDiary.TabIndex = 4;
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(657, 343);
-            this.Controls.Add(this.dgdDiary);
+            this.Controls.Add(this.dgvDiary);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dgdDiary)).EndInit();
+            this.Name = "Main";
+            this.Text = "Dziennik Ucznia";
+            this.Load += new System.EventHandler(this.Main_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDiary)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -123,7 +124,7 @@ namespace StudentsDiary
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DataGridView dgdDiary;
+        private System.Windows.Forms.DataGridView dgvDiary;
     }
 }
 

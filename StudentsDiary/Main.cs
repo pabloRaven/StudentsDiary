@@ -22,7 +22,7 @@ namespace StudentsDiary
         {
             InitializeComponent();
             var students = DeserializeFromFile();
-            dgdDiary.DataSource = students;
+            dgvDiary.DataSource = students;
 
         }
             public void SerializeToFile(List<Student> students)
@@ -60,26 +60,50 @@ namespace StudentsDiary
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (dgdDiary.SelectedRows.Count == 0)
+            if (dgvDiary.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Proszę zaznacz ucznia, którego chcesz edytować");
                 return;
             }
             var addEditStudent = new AddEditStudent(
-                Convert.ToInt32(dgdDiary.SelectedRows[0].Cells[0].Value));
+                Convert.ToInt32(dgvDiary.SelectedRows[0].Cells[0].Value));
             addEditStudent.ShowDialog();
 
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (dgvDiary.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Proszę zaznacz ucznia, którego chcesz usunąc");
+                return;
+            }
+            var selectedStudent = dgvDiary.SelectedRows[0];
 
+            var confirmDelete = 
+                MessageBox.Show($"Czy napewno chcesz usunąć ucznia{(selectedStudent.Cells[1].Value.ToString() + " " + selectedStudent.Cells[2].Value.ToString()).Trim() }", 
+              " Usuwanie ucznia ",
+               MessageBoxButtons.OKCancel);
+            if (confirmDelete == DialogResult.OK)
+            {
+                var students = DeserializeFromFile();
+                students.RemoveAll(x => x.Id == Convert.ToInt32(selectedStudent.Cells[0].Value));
+                SerializeToFile(students);
+                dgvDiary.DataSource = students; 
+            }
+
+            
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             var students = DeserializeFromFile();
-            dgdDiary.DataSource = students;
+            dgvDiary.DataSource = students;
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

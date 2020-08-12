@@ -30,6 +30,7 @@ namespace StudentsDiary
 
                 if (student == null)
                     throw new Exception("Brak użytkownika o podanym identyfikatorze");
+
                 tbId.Text = student.Id.ToString();
                 tbFirstName.Text = student.FirstName;
                 tbSurname.Text = student.LastName;
@@ -39,8 +40,9 @@ namespace StudentsDiary
                 tbPolishLanguage.Text = student.PolishLang;
                 tbForeign.Text = student.ForeignLang;
                 rtbComments.Text = student.Comments;
-
+                                
             }
+            tbFirstName.Select();
         }
         public void SerializeToFile(List<Student> students)
         {

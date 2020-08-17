@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StudentsDiary
 {
     public partial class AddEditStudent : Form
     {
+      
+
         private string _filePath =
             Path.Combine(Environment.CurrentDirectory, "students.txt");
         // $@"{Environment.CurrentDirectory}\students.txt";
         private int _studentId;
-        private Student _student; 
+        private Student _student;
 
         private FileHelper<List<Student>> _fileHelper =
         new FileHelper<List<Student>>(Program.FilePath);
@@ -22,11 +26,10 @@ namespace StudentsDiary
             InitializeComponent();
             _studentId = id;
             GetStudentData();
-           
+
             tbFirstName.Select();
         }
-        
-        
+
 
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -35,40 +38,40 @@ namespace StudentsDiary
             Close();
 
         }
-        private void btnAccept_Click(object sender, EventArgs e)
+        private  void btnAccept_Click(object sender, EventArgs e)
         {
+            var students = _fileHelper.DeserializeFromFile();
 
-                var students = _fileHelper.DeserializeFromFile();
+            if (_studentId != 0)
+                students.RemoveAll(x => x.Id == _studentId);
 
-            if ( _studentId != 0)
-                     students.RemoveAll(x => x.Id == _studentId);
-            
             else
-                 AssignIdToNewStudent(students);
+                AssignIdToNewStudent(students);
 
             AddNewStudentsToList(students);
 
             _fileHelper.SerializeToFile(students);
-                Close();
-            }
+
+                    
+
+            Close();
+        }
+     
         private void AddNewStudentsToList(List<Student> students)
-            {
+        {
             var student = new Student
-                     { Id = _studentId,
-                      FirstName = tbFirstName.Text,
-                      LastName = tbSurname.Text,
-                      Comments = rtbComments.Text,
-                      Math = tbMath.Text,
-                      PolishLang = tbPolishLanguage.Text,
-                      Physics = tbPhisic.Text,
-                      ForeignLang = tbForeign.Text,
-                      Technology = tbTechnology.Text
-                     };
-            students.Add(student);
             {
-
-
+                Id = _studentId,
+                FirstName = tbFirstName.Text,
+                LastName = tbSurname.Text,
+                Comments = rtbComments.Text,
+                Math = tbMath.Text,
+                PolishLang = tbPolishLanguage.Text,
+                Physics = tbPhisic.Text,
+                ForeignLang = tbForeign.Text,
+                Technology = tbTechnology.Text
             };
+
 
 
 
@@ -81,8 +84,8 @@ namespace StudentsDiary
             _studentId = studentWithHigestId == null ?
                     1 : studentWithHigestId.Id + 1;
         }
-            private void GetStudentData()
-            {
+        private void GetStudentData()
+        {
             if (_studentId != 0)
             {
 
@@ -93,7 +96,7 @@ namespace StudentsDiary
                 if (_student == null)
                     throw new Exception("Brak użytkownika o podanym identyfikatorze");
                 FillTextBoxes();
-                
+
 
             }
         }
@@ -110,9 +113,9 @@ namespace StudentsDiary
             rtbComments.Text = _student.Comments;
         }
 
-        }
+    }
 
 
 
-    
+
 }

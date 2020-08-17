@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentsDiary.Properties;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,23 +16,40 @@ namespace StudentsDiary
 {
     public partial class Main : Form
     {
-        
-            
-            private string _filePath = 
-            Path.Combine(Environment.CurrentDirectory, "students.txt");
+
+
+        private string _filePath =
+        Path.Combine(Environment.CurrentDirectory, "students.txt");
         // $@"{Environment.CurrentDirectory}\students.txt";
 
         private FileHelper<List<Student>> _fileHelper =
          new FileHelper<List<Student>>(Program.FilePath);
 
+        public bool IsMaximaize
+        {
+            get
+            {
+                return Settings.Default.IsMaximize;
+            }
+            set
+            {
+                Settings.Default.IsMaximize = value;
+            }
+
+        }
+
 
         public Main()
         {
+
+
             InitializeComponent();
             RefreshDiary();
             SetColumnHeader();
-           
 
+
+            if (IsMaximaize)
+                WindowState = FormWindowState.Maximized;
         }
         private void RefreshDiary()
         {
@@ -52,12 +70,19 @@ namespace StudentsDiary
             dgvDiary.Columns[8].HeaderText = "Język obcy";
 
         }
-       
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var addEditStudent = new AddEditStudent();
+            addEditStudent.FormClosing += AddEditStudent_FormClosing;
             addEditStudent.ShowDialog();
+            
+        }
+
+        private void AddEditStudent_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            RefreshDiary();    
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -69,6 +94,7 @@ namespace StudentsDiary
             }
             var addEditStudent = new AddEditStudent(
                 Convert.ToInt32(dgvDiary.SelectedRows[0].Cells[0].Value));
+            addEditStudent.FormClosing += AddEditStudent_FormClosing;
             addEditStudent.ShowDialog();
 
         }
@@ -82,8 +108,8 @@ namespace StudentsDiary
             }
             var selectedStudent = dgvDiary.SelectedRows[0];
 
-            var confirmDelete = 
-                MessageBox.Show($"Czy napewno chcesz usunąć ucznia{(selectedStudent.Cells[1].Value.ToString() + " " + selectedStudent.Cells[2].Value.ToString()).Trim() }", 
+            var confirmDelete =
+                MessageBox.Show($"Czy napewno chcesz usunąć ucznia{(selectedStudent.Cells[1].Value.ToString() + " " + selectedStudent.Cells[2].Value.ToString()).Trim() }",
               " Usuwanie ucznia ",
                MessageBoxButtons.OKCancel);
             if (confirmDelete == DialogResult.OK)
@@ -92,7 +118,7 @@ namespace StudentsDiary
                 RefreshDiary();
             }
 
-            
+
         }
         private void DeleteStudent(int id)
         {
@@ -110,5 +136,16 @@ namespace StudentsDiary
         {
 
         }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+                IsMaximaize = true;
+            else
+                IsMaximaize = false;
+            Settings.Default.Save();
+        }
+
+
     }
 }

@@ -1,16 +1,9 @@
 ﻿using StudentsDiary.Properties;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
+
 
 namespace StudentsDiary
 {
@@ -50,6 +43,7 @@ namespace StudentsDiary
 
             if (IsMaximaize)
                 WindowState = FormWindowState.Maximized;
+
         }
         private void RefreshDiary()
         {
@@ -77,12 +71,12 @@ namespace StudentsDiary
             var addEditStudent = new AddEditStudent();
             addEditStudent.FormClosing += AddEditStudent_FormClosing;
             addEditStudent.ShowDialog();
-            
+
         }
 
         private void AddEditStudent_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RefreshDiary();    
+            RefreshDiary();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

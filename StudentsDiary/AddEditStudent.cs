@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StudentsDiary
@@ -53,7 +51,6 @@ namespace StudentsDiary
             _fileHelper.SerializeToFile(students);
 
                     
-
             Close();
         }
      
@@ -71,9 +68,7 @@ namespace StudentsDiary
                 ForeignLang = tbForeign.Text,
                 Technology = tbTechnology.Text
             };
-
-
-
+            students.Add(student);
 
         }
         private void AssignIdToNewStudent(List<Student> students)
